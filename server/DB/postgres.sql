@@ -6,8 +6,6 @@ CREATE DATABASE ratings_reviews;
 
 
 
-
-
 CREATE TABLE reviews (
   review_id serial PRIMARY KEY,
   product_id INT NOT NULL,

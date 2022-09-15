@@ -1,5 +1,6 @@
 const { Client, Pool } = require("pg");
 
+// create connection pool with postgres
 const pool = new Pool({
   user: process.env.PGUser,
   host: process.env.PGHost,
@@ -16,5 +17,6 @@ pool.query("SELECT NOW()", (err, res) => {
   } else {
     console.log("psql db connected");
   }
-  pool.end();
 });
+
+module.exports = pool;
