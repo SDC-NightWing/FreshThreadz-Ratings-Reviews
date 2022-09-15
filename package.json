@@ -1,0 +1,26 @@
+{
+  "name": "rfp-2207-ratings-reviews",
+  "version": "1.0.0",
+  "description": "Backend for Rating-Reviews",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SDC-NightWing/rfp-2207-ratings-reviews.git"
+  },
+  "author": "Blake Lenhard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SDC-NightWing/rfp-2207-ratings-reviews/issues"
+  },
+  "homepage": "https://github.com/SDC-NightWing/rfp-2207-ratings-reviews#readme",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "4.18.1",
+    "mongoose": "^6.6.1",
+    "pg-promise": "10.12.0",
+    "postgres": "3.2.4"
+  }
+}
