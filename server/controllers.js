@@ -1,27 +1,110 @@
-const { reviewsModel } = require("./models.js");
+const { response } = require("express");
+const {
+  reviewsModel,
+  metaData,
+  addReview,
+  isHelpful,
+  reportReview,
+  postPics,
+  characteristicsReview,
+} = require("./models.js");
 
 module.exports = {
   // controller to handle request for reviews
   getReviews: (req, res) => {
-    reviewsModel().then((data) => {
-      console.log(data.rows);
-      res.send(data.rows).status(201);
-    });
+    //define query params to either what they are requested or presets
+    const params = {
+      id: req.query.product_id,
+      page: !req.query.page ? 1 : req.query.page,
+      count: !req.query.count ? 5 : req.query.count,
+      sort: null,
+    };
+
+    // off set is based off of the value of page set outside initializer
+    params.offSet = params.page === "1" ? 0 : (params.page - 1) * params.count;
+
+    // gives the correct query to sort value
+    if (req.query.sort === "helpful") {
+      params.sort = "helpfulness DESC";
+    } else if (req.query.sort === "newest") {
+      params.sort = `date DESC`;
+    } else if (req.query.sort === "relevant") {
+      params.sort = `date DESC, LENGTH(body) DESC, helpfulness DESC`;
+    }
+
+    // pass request to the model
+    reviewsModel(params)
+      .then((data) => {
+        const result = {
+          product: params.id,
+          page: params.page,
+          count: params.count,
+          results: data.rows,
+        };
+        res.send(result).status(200);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 
   // controller to handle request for meta data
   getMeta: (req, res) => {
-    console.log(req);
+    const params = {
+      product_id: req.query.product_id,
+    };
+    metaData(params)
+      .then((data) => {
+        res.send(data.rows[0]).status(200);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 
   // controller to handle posting a review
   newReview: (req, res) => {
-    console.log(req);
+    const params = req.body;
+
+    addReview(params)
+      .then((result) => {
+        const photos = params.photos;
+        const characteristics = params.characteristics;
+        const review_id = result.rows[0].review_id;
+
+        for (key in characteristics) {
+          const id = key;
+          const value = characteristics[key];
+          characteristicsReview(id, value, review_id);
+        }
+
+        photos.map((photoObj) => {
+          const url = photoObj.url;
+
+          postPics(url, review_id);
+        });
+      })
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(300);
+      });
   },
 
   // controller to update if a review is helpful
   helpful: (req, res) => {
-    console.log(req);
+    const review_id = req.body.review_id;
+    isHelpful(review_id)
+      .then((result) => {
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        res.sendStatus(404);
+      });
   },
 
   // controller for reporting a review

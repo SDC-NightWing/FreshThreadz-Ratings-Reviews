@@ -10,7 +10,7 @@ CREATE TABLE reviews (
   review_id serial PRIMARY KEY,
   product_id INT NOT NULL,
   rating INT NOT NULL,
-  date VARCHAR(100) NOT NULL,
+  date BIGINT NOT NULL,
   summary VARCHAR (350) NOT NULL,
   body VARCHAR (2000) NOT NULL,
   recommend BOOLEAN NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE reviews (
 CREATE TABLE review_photos (
   id serial PRIMARY KEY,
   review_id INT NOT NULL,
-  phot_url VARCHAR (200) NOT NULL,
+  photo_url VARCHAR (200) NOT NULL,
   FOREIGN KEY (review_id)
     REFERENCES reviews (review_id)
 );
@@ -65,3 +65,15 @@ COPY characteristic_reviews
 FROM '/Users/blakelenhard/desktop/sdc_data/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
+
+ALTER TABLE reviews
+ALTER COLUMN date TYPE TIMESTAMP
+USING (to_timestamp(date::decimal/1000));
+
+SELECT setval(pg_get_serial_sequence('reviews', 'review_id'), coalesce(max(review_id),0) + 1, false) FROM reviews;
+
+SELECT setval(pg_get_serial_sequence('review_photos', 'id'), coalesce(max(id),0) + 1, false) FROM review_photos;
+
+SELECT setval(pg_get_serial_sequence('characteristics', 'id'), coalesce(max(id),0) + 1, false) FROM characteristics;
+
+SELECT setval(pg_get_serial_sequence('characteristic_reviews', 'id'), coalesce(max(id),0) + 1, false) FROM characteristic_reviews;
