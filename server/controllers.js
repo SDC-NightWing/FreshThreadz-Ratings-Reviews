@@ -13,22 +13,23 @@ module.exports = {
   // controller to handle request for reviews
   getReviews: (req, res) => {
     //define query params to either what they are requested or presets
+    console.log("hey");
     const params = {
       id: req.query.product_id,
       page: !req.query.page ? 1 : req.query.page,
       count: !req.query.count ? 5 : req.query.count,
-      sort: null,
+      sort: req.query.sort || "newest",
     };
 
     // off set is based off of the value of page set outside initializer
     params.offSet = params.page === "1" ? 0 : (params.page - 1) * params.count;
 
     // gives the correct query to sort value
-    if (req.query.sort === "helpful") {
+    if (params.sort === "helpful") {
       params.sort = "helpfulness DESC";
-    } else if (req.query.sort === "newest") {
+    } else if (params.sort === "newest") {
       params.sort = `date DESC`;
-    } else if (req.query.sort === "relevant") {
+    } else if (params.sort === "relevant") {
       params.sort = `date DESC, LENGTH(body) DESC, helpfulness DESC`;
     }
 
