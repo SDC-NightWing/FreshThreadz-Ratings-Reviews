@@ -97,18 +97,28 @@ module.exports = {
 
   // controller to update if a review is helpful
   helpful: (req, res) => {
-    const review_id = req.body.review_id;
+    const review_id = req.params.review_id;
     isHelpful(review_id)
       .then((result) => {
         res.sendStatus(201);
       })
       .catch((err) => {
+        console.log(err);
         res.sendStatus(404);
       });
   },
 
   // controller for reporting a review
   report: (req, res) => {
-    console.log(req);
+    const review_id = req.params.review_id;
+    reportReview(review_id)
+      .then((result) => {
+        console.log(result.rows);
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.sendStatus(404);
+      });
   },
 };

@@ -99,10 +99,25 @@ module.exports = {
   },
 
   isHelpful: (review_id) => {
+    console.log(review_id);
     const query = {
-      update,
+      text: `UPDATE reviews
+             SET helpfulness = helpfulness + 1
+             WHERE review_id = ${review_id}
+             returning helpfulness
+    `,
     };
+    return pool.query(query);
   },
 
-  reportReview: () => {},
+  reportReview: (review_id) => {
+    const query = {
+      text: `UPDATE reviews
+             SET reported = TRUE
+             WHERE review_id = ${review_id}
+             returning reported
+      `,
+    };
+    return pool.query(query);
+  },
 };
