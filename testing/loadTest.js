@@ -10,6 +10,9 @@ export const options = {
   thresholds: {
     http_req_duration: ["p(95)<50"],
   },
+
+  // longer local load test
+
   // insecureSkipTLSVerify: true,
   // noConnectionReuse: false,
   // stages: [
@@ -27,6 +30,11 @@ export const options = {
 };
 
 export default function () {
-  http.batch([req1, req2, req3, req4, req5]);
+  // batched test of all routes
+
+  // http.batch([req1, req2, req3, req4, req5]);
+
+  // test for single route
+  http.batch([req1]);
   sleep(1);
 }

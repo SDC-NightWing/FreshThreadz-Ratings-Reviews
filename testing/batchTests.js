@@ -1,4 +1,4 @@
-const max = 1000;
+const max = 1000000;
 const min = 1;
 
 module.exports = {
