@@ -13,7 +13,6 @@ module.exports = {
   // controller to handle request for reviews
   getReviews: (req, res) => {
     //define query params to either what they are requested or presets
-    console.log("hey");
     const params = {
       id: req.query.product_id,
       page: !req.query.page ? 1 : req.query.page,
@@ -92,7 +91,7 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err);
-        res.sendStatus(300);
+        res.sendStatus(404);
       });
   },
 
@@ -114,11 +113,9 @@ module.exports = {
     const review_id = req.params.review_id;
     reportReview(review_id)
       .then((result) => {
-        console.log(result.rows);
         res.sendStatus(201);
       })
       .catch((err) => {
-        console.log(err);
         res.sendStatus(404);
       });
   },

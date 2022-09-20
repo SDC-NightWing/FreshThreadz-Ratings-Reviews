@@ -12,6 +12,6 @@ app.use(morgan("tiny"));
 // treansfer to router file
 app.use("", router);
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`Currently listening on http://localhost:${port}`);
 });
