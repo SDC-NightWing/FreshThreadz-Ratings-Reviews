@@ -27,6 +27,6 @@ export const options = {
 };
 
 export default function () {
-  http.batch([req1]);
+  http.batch([req1, req2, req3, req4, req5]);
   sleep(1);
 }
