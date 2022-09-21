@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 // treansfer to router file
+app.get("/loaderio-048d6d632814fec753974e4546749fb2", (req, res) => res.send("loaderio-048d6d632814fec753974e4546749fb2"))
 app.use("", router);
 
 app.listen(port, () => {
