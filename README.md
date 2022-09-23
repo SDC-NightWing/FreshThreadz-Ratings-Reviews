@@ -7,4 +7,4 @@ Atliers e commerce Microservice was scaled. It was scaled in AWS EC2 to use Ngin
 Pick a database.  Selecting between a SQL and a NoSQL database was a little tricky. I found that alot of the data being worked with was inter related and felt using a SQL databse would benefit from this fact. I chose to go with Postgres, seing as how I had prior expereince with MySQL and wanted to learn something new.
 
 My intial request times were painfully slow. 
-![initial query - table] (<img width="849" alt="Screen Shot 2022-09-23 at 3 23 20 PM" src="https://user-images.githubusercontent.com/104694911/192064503-f097b542-523e-4d71-9b58-009edaa46d20.png">)
+!(<img width="849" alt="Screen Shot 2022-09-23 at 3 23 20 PM" src="https://user-images.githubusercontent.com/104694911/192064503-f097b542-523e-4d71-9b58-009edaa46d20.png">)
