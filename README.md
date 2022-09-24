@@ -22,9 +22,8 @@ This number was unacceptable.
 
 ### Scaling 
 
-To counteract this high latency another AWS EC2 host server was created as well as an EC2 instance to run Enginx Nginx Load Balancer. A simple round robin method was taken for dictating which server a request would go to.  This resulted in an error rate of 0% and an increase of latency by 67% (548ms) at 1000 rps
+To counteract this high latency another AWS EC2 host server was created as well as an EC2 instance to run Enginx Nginx Load Balancer. A simple round robin method was taken for dictating which server a request would go to.  This resulted in faster query times, but a striking numbert of errors began occuring halfway thorugh testing.
 
-![](https://user-images.githubusercontent.com/104694911/192070679-ed949c76-e067-4d29-8419-70d5612de5ff.png)
 
 ## Step 3: Optimization 
 
