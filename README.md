@@ -34,7 +34,11 @@ Caching was added to the nginx load balancer.  After caching servers were able t
 # Possible future improvments
 
 For further optimization I woul dbe interested in seeing the possible results of implementing 2-3 more servers to handle up to 10k rps.
-At a future date I would also be highly interested in vertical scaling with stronger computers.
+At a future date I would also be highly interested in vertical scaling with stronger computers. *same paragraph*
 
+# Running this Repo
 
+- git clone this repo onto local maching
+- npm install
+- npm run start_server
 
